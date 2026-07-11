@@ -23,7 +23,7 @@ pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3
 pbmc
 ```
 <details>
-  <summary>**What does data in a count matrix look like?**</summary>
+  <summary>**What does data in a count matrix look like?**<summary>
 
 ```{r}
 # Lets examine a few genes in the first thirty cells
@@ -32,15 +32,6 @@ pbmc.data[c("CD3D","TCL1A","MS4A1"), 1:30]
 
 The `.` values in the matrix represent 0s (no molecules detected). Since most values in an scRNA-seq matrix are 0, Seurat uses a sparse-matrix representation whenever possible. This results in significant memory and speed savings for Drop-seq/inDrop/10x data.
 
-```{r}
-dense.size <- object.size(as.matrix(pbmc.data))
-dense.size
-sparse.size <- object.size(pbmc.data)
-sparse.size
-dense.size / sparse.size
-```
-</details>
-\  
 
 # Standard pre-processing workflow
 
@@ -60,12 +51,8 @@ Seurat allows you to easily explore QC metrics and filter cells based on any use
     + We use the set of all genes starting with `MT-` as a set of mitochondrial genes
 
 ```{r mito}
-# The [[ operator can add columns to object metadata. This is a great place to stash QC stats
 pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
 ```
-
-<details>
-  <summary>**Where are QC metrics stored in Seurat?**</summary>
 
 * The number of unique genes and total molecules are automatically calculated during `CreateSeuratObject()`
     + You can find them stored in the object metadata
