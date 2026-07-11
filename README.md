@@ -61,26 +61,54 @@ pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
 head(pbmc@meta.data, 5)
 ```
 </details>
-\  
 
 In the example below, we visualize QC metrics, and use these to filter cells.
 
 * We filter cells that have unique feature counts over 2,500 or less than 200
 * We filter cells that have >5% mitochondrial counts
     
-```{r qc2, fig.height=7, fig.width=13}
 
-#Visualize QC metrics as a violin plot
-VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+## Visualize QC metrics as a violin plot
 
-# FeatureScatter is typically used to visualize feature-feature relationships, but can be used for anything calculated by the object, i.e. columns in object metadata, PC scores etc.
-
-plot1 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "percent.mt") 
-plot2 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA") 
-plot1 + plot2
-
-pbmc <- subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+```r
+VlnPlot(
+  pbmc,
+  features = c("nFeature_RNA", "nCount_RNA", "percent.mt"),
+  ncol = 3
+)
 ```
+
+![Violin plot showing QC metrics](https://github.com/user-attachments/assets/6e86bb22-2ace-47fd-997f-2d8fee791ef8)
+
+## Examine relationships between QC metrics
+
+```r
+plot1 <- FeatureScatter(
+  pbmc,
+  feature1 = "nCount_RNA",
+  feature2 = "percent.mt"
+)
+
+plot2 <- FeatureScatter(
+  pbmc,
+  feature1 = "nCount_RNA",
+  feature2 = "nFeature_RNA"
+)
+
+plot1 + plot2
+```
+
+## Filter low-quality cells
+
+```r
+pbmc <- subset(
+  pbmc,
+  subset = nFeature_RNA > 200 &
+           nFeature_RNA < 2500 &
+           percent.mt < 5
+)
+```
+
 
 ***
 
