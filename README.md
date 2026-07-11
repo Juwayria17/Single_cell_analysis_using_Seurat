@@ -3,29 +3,6 @@
 title: "Seurat - Guided Clustering Tutorial"
 ---
 
-```{r setup, include=FALSE}
-all_times <- list()  # store the time for each chunk
-knitr::knit_hooks$set(time_it = local({
-  now <- NULL
-  function(before, options) {
-    if (before) {
-      now <<- Sys.time()
-    } else {
-      res <- difftime(Sys.time(), now, units = "secs")
-      all_times[[options$label]] <<- res
-    }
-  }
-}))
-knitr::opts_chunk$set(
-  tidy = TRUE,
-  tidy.opts = list(width.cutoff = 95),
-  message = FALSE,
-  warning = FALSE,
-  time_it = TRUE,
-  error = TRUE
-)
-```
-
 # Set up the Seurat object
 
 For this tutorial, we will be analyzing a dataset of Peripheral Blood Mononuclear Cells (PBMC) freely available from 10X Genomics. There are 2,700 single cells that were sequenced on the Illumina NextSeq 500. The raw data can be found [here](https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz).
