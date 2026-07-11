@@ -278,13 +278,19 @@ Seurat can help you find markers that define clusters via differential expressio
 
 In Seurat v5, we use the presto package (as described [here](https://www.biorxiv.org/content/10.1101/653253v1) and available for installation [here](https://github.com/immunogenomics/presto)), to dramatically improve the speed of DE analysis, particularly for large datasets. For users who are not using presto, you can examine the documentation for this function (`?FindMarkers`) to explore the `min.pct` and `logfc.threshold` parameters, which can be increased in order to increase the speed of DE testing.
 
-```{r markers1}
+```r
 # find all markers of cluster 2
 cluster2.markers <- FindMarkers(pbmc, ident.1 = 2)
 head(cluster2.markers, n = 5)
+```
+
+```r
 # find all markers distinguishing cluster 5 from clusters 0 and 3
 cluster5.markers <- FindMarkers(pbmc, ident.1 = 5, ident.2 = c(0, 3))
 head(cluster5.markers, n = 5)
+```
+
+```r
 # find markers for every cluster compared to all remaining cells, report only the positive ones
 pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE)
 pbmc.markers %>%
