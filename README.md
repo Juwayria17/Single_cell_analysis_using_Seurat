@@ -1,11 +1,6 @@
 # Single_cell_analysis_using_Seurat
 ---
 title: "Seurat - Guided Clustering Tutorial"
-output:
-  html_document:
-    theme: united
-    df_print: kable
-date: 'Compiled: `r format(Sys.Date(), "%B %d, %Y")`'
 ---
 
 ```{r setup, include=FALSE}
