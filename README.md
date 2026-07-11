@@ -1,6 +1,6 @@
 # Single_cell_analysis_using_Seurat
 ---
-title: "Seurat - Guided Clustering Tutorial"
+"Seurat - Guided Clustering Tutorial"
 ---
 
 # Set up the Seurat object
