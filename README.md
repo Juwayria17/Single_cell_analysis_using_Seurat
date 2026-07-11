@@ -97,6 +97,8 @@ plot2 <- FeatureScatter(
 
 plot1 + plot2
 ```
+<img width="2496" height="1344" alt="image" src="https://github.com/user-attachments/assets/453fe67e-ed65-43d2-ad3d-775ce4e363a6" />
+
 
 ## Filter low-quality cells
 
