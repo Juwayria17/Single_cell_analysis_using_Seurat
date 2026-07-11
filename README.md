@@ -23,7 +23,7 @@ pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3
 pbmc
 ```
 <details>
-  <summary>**What does data in a count matrix look like?**<summary>
+  <summary>**What does data in a count matrix look like?**
 
 ```{r}
 # Lets examine a few genes in the first thirty cells
