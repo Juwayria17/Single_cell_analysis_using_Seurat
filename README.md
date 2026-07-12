@@ -3,6 +3,29 @@
 "Seurat - Guided Clustering Tutorial"
 ---
 
+## Installation Instructions for Seurat
+To install Seurat, [R](https://www.r-project.org/) version 4.0 or greater is required. We also recommend installing [R Studio](https://www.rstudio.com/).
+
+Copy the code below to install Seurat v5:
+
+```{r required, eval=FALSE}
+remotes::install_github("satijalab/seurat", "seurat5", quiet = TRUE)
+```
+
+The following packages are not required but are used in many Seurat v5 vignettes:
+
+* SeuratData: automatically load datasets pre-packaged as Seurat objects
+* Azimuth: local annotation of scRNA-seq and scATAC-seq queries across multiple organs and tissues
+* SeuratWrappers: enables use of additional integration and differential expression methods
+* Signac: analysis of single-cell chromatin data
+
+```{r additional, eval=FALSE}
+remotes::install_github("satijalab/seurat-data", "seurat5", quiet = TRUE)
+remotes::install_github("satijalab/azimuth", "seurat5", quiet = TRUE)
+remotes::install_github("satijalab/seurat-wrappers", "seurat5", quiet = TRUE)
+remotes::install_github("stuart-lab/signac", "seurat5", quiet = TRUE)
+```
+
 # Set up the Seurat object
 
 For this tutorial, we will be analyzing a dataset of Peripheral Blood Mononuclear Cells (PBMC) freely available from 10X Genomics. There are 2,700 single cells that were sequenced on the Illumina NextSeq 500. The raw data can be found [here](https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz).
