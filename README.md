@@ -278,6 +278,21 @@ We chose 10 here, but encourage users to consider the following:
 
 ***
 
+# Run clustering across several resolutions
+
+Clustree shows how cells move between clusters as the resolution increases. It helps identify a resolution where clusters are stable, rather than choosing 0.5/0.6/0.7 arbitrarily. Avoid resolutions where clusters repeatedly split into many small, unstable groups.
+
+```r
+#install.packages("clustree")
+library(clustree)
+
+pbmc <- FindClusters(
+  pbmc,
+  resolution = seq(0.1, 1.0, by = 0.1)
+)
+
+```
+
 # Cluster the cells
 
 Seurat applies a graph-based clustering approach, building upon initial strategies in ([Macosko *et al*](https://www.cell.com/fulltext/S0092-8674(15)00549-8)). Importantly, the *distance metric* which drives the clustering analysis (based on previously identified PCs) remains the same. However, our approach to partitioning the cellular distance matrix into clusters has dramatically improved. Our approach was heavily inspired by recent manuscripts which applied graph-based clustering approaches to scRNA-seq data [[SNN-Cliq, Xu and Su, Bioinformatics, 2015]](http://bioinformatics.oxfordjournals.org/content/early/2015/02/10/bioinformatics.btv088.abstract) and CyTOF data [[PhenoGraph, Levine *et al*., Cell, 2015]](http://www.ncbi.nlm.nih.gov/pubmed/26095251). Briefly, these methods embed cells in a graph structure - for example a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar feature expression patterns, and then attempt to partition this graph into highly interconnected 'quasi-cliques' or 'communities'. 
