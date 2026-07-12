@@ -15,6 +15,25 @@ install.packages('Seurat')
 library(Seurat)
 ```
 
+```r
+# Install the minimum packages required for the Seurat class
+install.packages(c(
+  "Seurat",
+  "dplyr",
+  "ggplot2",
+  "patchwork",
+  "clustree"
+))
+```
+```r
+# Load the packages
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+library(clustree)
+```
+
 Seurat does not require, but makes use of, packages developed by other labs that can substantially enhance speed and performance. These include presto (Korsunsky/Raychaudhuri Labs), BPCells (Greenleaf Lab), and glmGamPoi (Huber Lab). To install these packages, run:
 
 ```r
