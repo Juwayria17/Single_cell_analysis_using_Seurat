@@ -147,6 +147,7 @@ plot1 <- VariableFeaturePlot(pbmc)
 plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
 plot1 + plot2
 ```
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/ee772c60-903a-41c4-ac4f-c4333cbe48c7" />
 
 ***
 
@@ -189,22 +190,38 @@ pbmc <- RunPCA(pbmc, features = VariableFeatures(object = pbmc))
 
 Seurat provides several useful ways of visualizing both cells and features that define the PCA, including `VizDimLoadings()`, `DimPlot()`, and `DimHeatmap()`.
 
-```{r pca_viz, fig.height=8, fig.width=10, message=TRUE}
+```r
 # Examine and visualize PCA results a few different ways
 print(pbmc[['pca']], dims = 1:5, nfeatures = 5)
+```
+
+
+```r
 VizDimLoadings(pbmc, dims = 1:2, reduction = 'pca')
+```
+<img width="1920" height="1536" alt="image" src="https://github.com/user-attachments/assets/6e7dda4d-58d5-4237-b757-cae65ac6f86e" />
+
+
+```r
 DimPlot(pbmc, reduction = 'pca') + NoLegend()
 ```
+
+<img width="1920" height="1536" alt="image" src="https://github.com/user-attachments/assets/bd57009a-bd79-4e66-afd2-8e54c2d10350" />
+
 
 In particular, `DimHeatmap()` allows for easy exploration of the primary sources of heterogeneity in a dataset, and can be useful when trying to decide which PCs to include for further downstream analyses. Both cells and features are ordered according to their PCA scores. Setting `cells` to a number plots the 'extreme' cells on both ends of the spectrum, which dramatically speeds plotting for large datasets. Though clearly a supervised analysis, we find this to be a valuable tool for exploring correlated feature sets.
 
 ```{r single-heatmap, fig.height=6, fig.width=9}
 DimHeatmap(pbmc, dims = 1, cells = 500, balanced = TRUE)
 ```
+<img width="1728" height="1152" alt="image" src="https://github.com/user-attachments/assets/ff57ae12-02f8-498b-8a60-4b8c9fd6c937" />
+
 
 ```{r multi-heatmap, fig.height=15, fig.width=9}
 DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
 ```
+<img width="1728" height="2880" alt="image" src="https://github.com/user-attachments/assets/57c90af3-e9b0-451a-b8e6-31a053af7f45" />
+
 
 # Determine the 'dimensionality' of the dataset
 
@@ -217,6 +234,9 @@ An alternative heuristic method generates an elbow plot: a ranking of principle 
 ```{r elbow_plot, fig.height=6, fig.width=10}
 ElbowPlot(pbmc)
 ```
+
+<img width="1920" height="1152" alt="image" src="https://github.com/user-attachments/assets/70a2ed24-7f91-48e6-a8fc-79c97bff0ca7" />
+
 
 Identifying the true dimensionality of a dataset can be challenging/uncertain. We therefore suggest these multiple approaches for users. The first is more supervised, exploring PCs to determine relevant sources of heterogeneity, and could be used in conjunction with GSEA, for example; the second, (`ElbowPlot`); the third is a heuristic that is commonly used, and can be calculated instantly. In this example, we might have been justified in choosing anything between PC 7-12 as a cutoff. 
 
@@ -240,7 +260,10 @@ To cluster the cells, we next apply modularity optimization techniques such as t
 ```{r cluster}
 pbmc <- FindNeighbors(pbmc, dims = 1:10)
 pbmc <- FindClusters(pbmc, resolution = 0.5)
+```
 
+
+```r
 # Look at cluster IDs of the first 5 cells
 head(Idents(pbmc), 5)
 ```
@@ -263,6 +286,8 @@ pbmc <- RunUMAP(pbmc, dims = 1:10)
 # note that you can set `label = TRUE` or use the LabelClusters function to help label individual clusters
 DimPlot(pbmc, reduction = 'umap')
 ```
+<img width="1536" height="1536" alt="image" src="https://github.com/user-attachments/assets/c1a2c848-c2c0-46b1-b080-fe0dd18885a5" />
+
 
 You can save the object at this point so that it can easily be loaded back in without having to rerun the computationally intensive steps performed above, or easily shared with collaborators.
 
@@ -298,6 +323,7 @@ pbmc.markers %>%
     dplyr::filter(avg_log2FC > 1)
 ```
 
+
 Seurat has several tests for differential expression which can be set with the test.use parameter (see our [DE vignette](de_vignette.html) for details). For example, the ROC test returns the 'classification power' for any individual marker (ranging from 0 - random, to 1 - perfect).
 
 ```{r markersroc}
@@ -308,13 +334,21 @@ We include several tools for visualizing marker expression. `VlnPlot()` (shows e
 
 ```{r markerplots, fig.height=5, fig.width=10}
 VlnPlot(pbmc, features = c("MS4A1", "CD79A"))
+```
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/51e88381-ca15-434e-bed2-98ee0fc67ba8" />
+
+```r
 # you can plot raw counts as well
 VlnPlot(pbmc, features = c("NKG7", "PF4"), slot = 'counts', log = TRUE)
 ```
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/46dfb101-9281-47cf-ba10-1b215c006c59" />
+
 
 ```{r, fig.height=8, fig.width=10}
 FeaturePlot(pbmc, features = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A"))
 ```
+<img width="1920" height="1536" alt="image" src="https://github.com/user-attachments/assets/5dbd589e-b87b-4244-af73-215c21d055a8" />
+
 `DoHeatmap()` generates an expression heatmap for given cells and features. In this case, we are plotting the top 10 markers (or all markers if less than 10) for each cluster.
 
 ```{r clusterHeatmap, fig.height=8, fig.width=10}
@@ -325,6 +359,8 @@ pbmc.markers %>%
     ungroup() -> top10
 DoHeatmap(pbmc, features = top10$gene) + NoLegend()
 ```
+<img width="1920" height="1536" alt="image" src="https://github.com/user-attachments/assets/09dbc2a5-6d84-45a5-a9cf-9fb5f52a9379" />
+
 
 ***
 # Assigning cell type identity to clusters
@@ -350,6 +386,8 @@ names(new.cluster.ids) <- levels(pbmc)
 pbmc <- RenameIdents(pbmc, new.cluster.ids)
 DimPlot(pbmc, reduction = 'umap', label = TRUE, pt.size = 0.5) + NoLegend()
 ```
+<img width="1728" height="960" alt="image" src="https://github.com/user-attachments/assets/68755c90-5e3b-4a2b-b8e7-109c37db4611" />
+
 
 ```{r save.img, include=TRUE}
 library(ggplot2)
