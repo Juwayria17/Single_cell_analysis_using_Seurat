@@ -4,26 +4,33 @@
 ---
 
 ## Installation Instructions for Seurat
+
 To install Seurat, [R](https://www.r-project.org/) version 4.0 or greater is required. We also recommend installing [R Studio](https://www.rstudio.com/).
 
-Copy the code below to install Seurat v5:
+Seurat is available on CRAN for all systems. To install, run:
 
-```{r required, eval=FALSE}
-remotes::install_github("satijalab/seurat", "seurat5", quiet = TRUE)
+```r
+# Enter commands in R (or R studio, if installed)
+install.packages('Seurat')
+library(Seurat)
 ```
 
-The following packages are not required but are used in many Seurat v5 vignettes:
+Seurat does not require, but makes use of, packages developed by other labs that can substantially enhance speed and performance. These include presto (Korsunsky/Raychaudhuri Labs), BPCells (Greenleaf Lab), and glmGamPoi (Huber Lab). To install these packages, run:
 
+```r
+setRepositories(ind = 1:3, addURLs = c('https://satijalab.r-universe.dev', 'https://bnprks.r-universe.dev/'))
+install.packages(c("BPCells", "presto", "glmGamPoi"))
+```
 * SeuratData: automatically load datasets pre-packaged as Seurat objects
 * Azimuth: local annotation of scRNA-seq and scATAC-seq queries across multiple organs and tissues
 * SeuratWrappers: enables use of additional integration and differential expression methods
 * Signac: analysis of single-cell chromatin data
 
-```{r additional, eval=FALSE}
-remotes::install_github("satijalab/seurat-data", "seurat5", quiet = TRUE)
-remotes::install_github("satijalab/azimuth", "seurat5", quiet = TRUE)
-remotes::install_github("satijalab/seurat-wrappers", "seurat5", quiet = TRUE)
-remotes::install_github("stuart-lab/signac", "seurat5", quiet = TRUE)
+```r
+install.packages('Signac')
+remotes::install_github("satijalab/seurat-data", quiet = TRUE)
+remotes::install_github("satijalab/azimuth", quiet = TRUE)
+remotes::install_github("satijalab/seurat-wrappers", quiet = TRUE)
 ```
 
 # Set up the Seurat object
