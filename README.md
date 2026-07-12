@@ -409,3 +409,9 @@ saveRDS(pbmc, file = "../output/pbmc3k_final.rds")
 sessionInfo()
 ```
 </details>
+
+## Credits & Acknowledgments
+
+https://satijalab.org/seurat/articles/pbmc3k_tutorial
+
+https://github.com/quadbio/scRNAseq_analysis_vignette/blob/master/Tutorial.md
